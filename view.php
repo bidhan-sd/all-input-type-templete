@@ -4,73 +4,33 @@
 		<h2 class="text-center">Student List</h2>
 	</div>
 	<div class="panel-body">
-		<table class="table table-striped">
+		<table class="table table-striped table-hover table-bordered table-condensed">
+		<thead>
 			<tr>
-				<th>Serial</th>
-				<th>Name</th>
-				<th>Email</th>
-				<th>Website</th>
-				<th>Country</th>
-				<th>Subject</th>
-				<th>Gender</th>
-				<th>Action</th>
+				<th width="5%">Serial</th>
+				<th width="15%">Name</th>
+				<th width="15%">Email</th>
+				<th width="10%">Country</th>
+				<th width="10%">Gender</th>
+				<th width="10%">Avatar</th>				
+				<th width="20%">Action</th>
 			</tr>
+		</thead>
+		<tbody>
 			<tr>
 				<td>01</td>
 				<td>Bidhan sutradhar</td>
 				<td>Bidhanvk@gmail.com</td>
-				<td>http://www.imbidhna.com</td>
 				<td>Bangladesh</td>
-				<td>Computer Science , Mathematic</td>
 				<td>Male</td>
+				<td><img src="img/capcha.png" width="70px" height="40px" /></td>
 				<td>
-					<a class="btn btn-info" data-toggle="modal" data-target="#myModal">View</a>
-					<a class="btn btn-default" href="edit.php">Edit</a>
-					<a class="btn btn-danger" href="delete.php" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
+					<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">View</a>
+					<a class="btn btn-default btn-lg" href="edit.php">Edit</a>
+					<a class="btn btn-danger btn-lg" href="delete.php" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
 				</td>
 			</tr>
-			<tr>
-				<td>02</td>
-				<td>Bidhan sutradhar</td>
-				<td>Bidhanvk@gmail.com</td>
-				<td>http://www.imbidhna.com</td>
-				<td>Bangladesh</td>
-				<td>Computer Science , Mathematic</td>
-				<td>Male</td>
-				<td>
-					<a class="btn btn-info" data-toggle="modal" data-target="#myModal">View</a>
-					<a class="btn btn-default" href="edit.php">Edit</a>
-					<a class="btn btn-danger" href="delete.php" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
-				</td>
-			</tr>
-			<tr>
-				<td>03</td>
-				<td>Bidhan sutradhar</td>
-				<td>Bidhanvk@gmail.com</td>
-				<td>http://www.imbidhna.com</td>
-				<td>Bangladesh</td>
-				<td>Computer Science , Mathematic</td>
-				<td>Male</td>
-				<td>
-					<a class="btn btn-info" data-toggle="modal" data-target="#myModal">View</a>
-					<a class="btn btn-default" href="edit.php">Edit</a>
-					<a class="btn btn-danger" href="delete.php" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
-				</td>
-			</tr>
-			<tr>
-				<td>04</td>
-				<td>Bidhan sutradhar</td>
-				<td>Bidhanvk@gmail.com</td>
-				<td>http://www.imbidhna.com</td>
-				<td>Bangladesh</td>
-				<td>Computer Science , Mathematic</td>
-				<td>Male</td>
-				<td>
-					<a class="btn btn-info" data-toggle="modal" data-target="#myModal">View</a>
-					<a class="btn btn-default" href="edit.php">Edit</a>
-					<a class="btn btn-danger" href="delete.php" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
-				</td>
-			</tr>
+		</tbody>
 		</table>
 
 		<!-- Modal -->
@@ -83,6 +43,7 @@
 						<h4 class="modal-title">Sutdent Indivisual information</h4>
 					</div>
 					<div class="modal-body">
+						<label class="pull-right"><img width="150px" height="80px" src="img/favicon.png"></label>
 						<label> Name &nbsp;&nbsp;&nbsp; :</label><span> Bidhan Sutradhar </span><br/>
 						<label> Email &nbsp;&nbsp;&nbsp; : </label><span> bidhanvk@gmail.com </span><br/>
 						<label> Website : </label><span> http://www.imbidhan.com </span><br/>

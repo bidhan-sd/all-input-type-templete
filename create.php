@@ -35,17 +35,21 @@
 			</div>
 			<div class="form-group">
 				<label>Subject</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Bangla">Ban</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Mathematic">Math</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="English">Eng</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Physic">Phy</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Computer Science">Cse</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Bangla">Bangla</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="English">English</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Mathematic">Mathematic</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Physic">Physic</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Computer">Computer</label>
 			</div>
 			<div class="form-group">
 				<label>Gender</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="Male">Male</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="others">Other</label>
+			</div>
+			<div class="form-group">
+				<label>Avatar</label>
+				<label class="radio-inline"><input type="file" name="image"/></label>
 			</div>
 			<div class="form-group">
 				<input class="btn btn-primary" type="submit" name="submit" value="Add Student">

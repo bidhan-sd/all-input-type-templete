@@ -35,17 +35,25 @@
 			</div>
 			<div class="form-group">
 				<label>Subject</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Bangla" checked="checked">Ban</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Mathematic" checked="checked">Math</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="English" checked="checked">Eng</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Physic" checked="checked">Phy</label>
-				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Computer Science" checked="checked">Cse</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Bangla">Bangla</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="English">English</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Mathematic">Mathematic</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Physic">Physic</label>
+				<label class="checkbox-inline"><input type="checkbox" name="subject[]" value="Computer">Computer</label>
 			</div>
 			<div class="form-group">
 				<label>Gender</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="Male" checked="checked">Male</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="others">Other</label>
+			</div>
+			<div class="form-group">
+				<label>Previous avatar</label>
+				<label class="radio-inline"><img src="img/favicon.png" width="40" width="20"></label>
+			</div>
+			<div class="form-group">
+				<label>Avatar</label>
+				<label class="radio-inline"><input type="file" name="image"/></label>
 			</div>
 			<div class="form-group">
 				<input class="btn btn-primary" type="submit" name="submit" value="Update">

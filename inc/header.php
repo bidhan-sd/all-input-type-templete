@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row">
+		<div style="margin-top:10px;" class="row">
 			<div class="well text-center">
 				<h1>All input type dynamic CRUD OOP & PDO</h1>
 			</div>
