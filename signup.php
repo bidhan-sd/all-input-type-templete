@@ -3,15 +3,75 @@
     if(isset($_POST['registation'])){
         $error = '';
         $success = '';
-        if(isset($_POST['captchacode']) AND !empty($_POST['captchacode'])){
-            if($_SESSION['captchacode'] == $_POST['captchacode']){
-                $success = "<span style='color:green;font-weight:bold'>Your capcha is successfully processed...</span>";
-            }else{
-                $error = "<span style='color:red;font-weight:bold'>Sorry Incorrect captcha entered...</span>";
-            }
+
+        if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['username']) || empty($_POST['password']) || empty($_POST['confirm_password']) || empty($_POST['captchacode']) ){
+			$error = "<span style='color:red;font-weight:bold'>Require field can't be empty...</span>";
         }else{
-        	$error = "<span style='color:red;font-weight:bold'>You have not entered captcha...</span>";
-        }
+
+        	$name     = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+        	$email    = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        	$username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+
+        	if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+				$error = "<span style='color:red;font-weight:bold'>Email address Invalid.</span>";
+        	}else{
+				if ($username == trim($username) && strpos($username, ' ') == true) {
+				    $error = "<span style='color:red;font-weight:bold'>Username shouldn't content space.</span>";
+				}else{
+					if(strlen($_POST['password']) > 8 || strlen($_POST['confirm_password']) > 8){
+					//preg_match('/^[a-zA-Z0-9]*([a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]$/', $_POST['password'])
+						if($_POST['password'] == $_POST['confirm_password']){
+							if($_SESSION['captchacode'] == $_POST['captchacode']){
+
+								$link = mysql_connect("localhost", "root", "");
+								mysql_select_db("crud", $link);
+								$sql = mysql_query("SELECT * FROM users WHERE username='$username' OR email='$email'");
+								$result = mysql_fetch_assoc($sql);
+								$row = mysql_num_rows($sql);
+								if($row>0){
+									$error = "<span style='color:red;font-weight:bold'>Username or Email already taken.</span>";
+								}else{
+
+
+									$name     = mysql_real_escape_string($_POST['name'], $link);
+									$email    = mysql_real_escape_string($_POST['email'], $link);
+									$username = mysql_real_escape_string($_POST['username'], $link);
+									$token    = sha1($username);
+									$date     = date('Y-m-d');
+									$uniqId   = uniqid();
+
+									$hass_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+									$sql = "INSERT INTO users (userId,name,username,email,password,user_role,token,active,created_at,updated_at,deleted_at) VALUES ('$uniqId','$name','$username','$email','$hass_password','1','$token','0','$date','','')";
+									$result = mysql_query($sql);
+									if($result){
+										$path = realpath(__DIR__);
+										$to = $email;
+										$subject = 'Signup | Verification';
+										$message = 
+										'Thanks for signing up!
+										Your account has been created, you can login with the following credentials after you have activated 
+										your account by pressing the url below.
+										Please click this link to activate your account:
+										<a href="http://dreambd.net/$path/verify.php?email='.$email.'&token='.$token.'">Click For Varify</a>
+										';
+										mail($to,$subject,$message);
+										$success = "<span style='color:green;font-weight:bold'>Please verify it by clicking the activation link that has been send to your email</span>";
+									}else{
+										$error = "<span style='color:red;font-weight:bold'>Insertion Failed.</span>";
+									}
+								}
+							}else{
+								$error = "<span style='color:red;font-weight:bold'>Capcha code dosen't match.</span>";
+							}
+						}else{
+							$error = "<span style='color:red;font-weight:bold'>Password and conform password dosen't match.</span>";
+						}					      		
+					}else{
+						$error = "<span style='color:red;font-weight:bold'>Password must be given 8 character.</span>";
+					}
+				}
+        	}
+		}
     }
 ?>
 <?php 
@@ -55,10 +115,10 @@ include_once 'inc/admin/header.php';
 		</div>
 
 		<div class="form-group">
-			<label for="confirm" class="control-label">Confirm Password</label>
+			<label for="confirm_password" class="control-label">Confirm Password</label>
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-				<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+				<input type="password" class="form-control" name="confirm_password" id="confirm_password"  placeholder="Confirm your Password"/>
 			</div>
 		</div>
 

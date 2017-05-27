@@ -1,5 +1,11 @@
 <?php include 'inc/header.php'; ?>
+<?php
+	session_start();
 
+	if(empty($_SESSION['userinfo'])){
+        header ("Location: signin.php");
+	}
+?>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h2>Student Information <a class="btn btn-success pull-right" href="view.php">Back</a></h2>
