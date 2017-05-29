@@ -1,1 +1,20 @@
+//sign up page uses function here.
+	1.empty()
+	2.trim()
+	3.strpos().
+	4.filter_var
+	5.strlen
+	6.mysql_connect
+	7.mysql_select_db
+	8.mysql_query
+	9.mysql_fetch_assoc
+	10.mysql_num_rows
+	11.mysql_real_escape_string
+	12.sha1
+	13.date
+	14.uniqid
+	15.password_hash
+	16.realpath
+	17.mail
+	18.isset
 //
