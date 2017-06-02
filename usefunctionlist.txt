@@ -30,3 +30,5 @@
 	9.password_verify()
 	10.setcookie()
 	11.isset()
+// Email send successfully but not send like link.
+	
