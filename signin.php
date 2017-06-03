@@ -1,6 +1,5 @@
 <?php
 	session_start();
-
 	if(isset($_SESSION['userinfo']) && $_SESSION['userinfo'] != ''){
         header ("Location: create.php");
 	}
@@ -14,25 +13,27 @@
         }else{
 
         	$email    = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
-    		$email    = mysql_real_escape_string($email);
-    		$password = mysql_real_escape_string($_POST['password']);
+    		
+    		
 
-    		mysql_connect("localhost", "root", "") or die(mysql_error());
-        	mysql_select_db("crud") or die(mysql_error());
-
-			$sql = mysql_query("SELECT * FROM users WHERE (email = '$email' OR username = '$email') AND active='0'") or die(mysql_error()); 
-
+    		$link = mysql_connect("localhost", "root", "");
+        	mysql_select_db("crud", $link);
+        	$email    = mysql_real_escape_string($_POST['email'],$link);
+        	$password = mysql_real_escape_string($_POST['password']);
+        	$query = "SELECT * FROM users WHERE (email = '$email' OR username = '$email') AND active='0'";
+			$sql = mysql_query($query);
 			$match  = mysql_num_rows($sql);
-
     		if($match > 0){
     			$error = "<span style='color:red;font-weight:bold'>Account not activated yet !</span>";		
     		}else{
-
-				$sql = mysql_query("SELECT * FROM users WHERE (email = '$email' OR username = '$email') ") or die(mysql_error()); 
+                
+				$sql = mysql_query("SELECT * FROM users WHERE (email = '$email' OR username = '$email')
+					") or die(mysql_error()); 
 				$row  = mysql_num_rows($sql);
 				$userinfo = mysql_fetch_assoc($sql);
 				$store_pass = $userinfo['password'];
 				$check_password = password_verify($password,$store_pass);
+				
 				if($check_password){
 
 					if (isset($_POST['remember'])) {
