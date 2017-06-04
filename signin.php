@@ -2,7 +2,11 @@
 	session_start();
 	if(isset($_SESSION['userinfo']) && $_SESSION['userinfo'] != ''){
         header ("Location: create.php");
-	}
+	}		
+	if(isset($_COOKIE['email']) AND isset($_COOKIE['password'])){
+        $cookie_email = $_COOKIE['email'];
+        $password = $_COOKIE['password'];
+    }
 
     if(isset($_POST['login'])){
         $error = '';
@@ -68,18 +72,18 @@
 			<label for="email" class="control-label">Your Email or Username<span style="color:red;">*</span></label>						
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-				<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+				<input type="text" class="form-control" name="email" value="<?php echo $email; ?>"  placeholder="Enter your Email"/>
 			</div>						
 		</div>
 		<div class="form-group">
 			<label for="password" class="control-label">Password<span style="color:red;">*</span></label>
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-				<input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password"/>
+				<input type="password" class="form-control" name="password" value="<?php echo $password; ?>" placeholder="Enter your Password"/>
 			</div>
 		</div>	
 		<div class="form-group">
-			<label class="checkbox-inline"><input type="checkbox" name="remember" value="remember">Remember Me</label>
+			<label class="checkbox-inline"><input type="checkbox" name="remember" value="remember" <?= isset($_COOKIE['email']) ? 'checked' : '' ?> >Remember Me</label>
 		</div>
 		<div class="form-group ">
 			<input class="btn btn-primary btn-lg btn-block login-button" type="submit" name="login" value="Login">
