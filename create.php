@@ -1,9 +1,49 @@
 <?php include 'inc/header.php'; ?>
 <?php
 	session_start();
-
 	if(empty($_SESSION['userinfo'])){
         header ("Location: signin.php");
+	}
+?>
+<?php
+    if(isset($_POST['submit'])){
+        $error = '';
+        $success = '';
+
+        if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['website']) || empty($_POST['country']) || empty($_POST['subject']) || empty($_POST['gender']) || empty($_POST['image']) ){
+			$error = "<span style='color:red;font-weight:bold'>Require field can't be empty...</span>";
+        }else{
+
+        	$name     = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+        	$email    = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        	$website  = filter_var($_POST['website'], FILTER_SANITIZE_URL);
+
+        	if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+				$error = "<span style='color:red;font-weight:bold'>Email address Invalid.</span>";
+        	}else{
+        		if(!filter_var($website, FILTER_VALIDATE_URL)){
+					$error = "<span style='color:red;font-weight:bold'>Website address Invalid.</span>";
+	        	}else{
+					$link = mysql_connect("localhost", "root", "");
+					mysql_select_db("crud", $link);
+
+					$name     = mysql_real_escape_string($name, $link);
+					$email    = mysql_real_escape_string($email, $link);
+					$website = mysql_real_escape_string($website, $link);
+					
+					$sql = "INSERT INTO users (userId,name,username,email,password,user_role,token,active,created_at,updated_at,deleted_at) VALUES ('$uniqId','$name','$username','$email','$hass_password','1','$token','0','$date','','')";
+					$result = mysql_query($sql);
+					if($result){
+						
+					}else{
+						$error = "<span style='color:red;font-weight:bold'>Insertion Failed.</span>";
+					}      		
+						
+				}
+
+	        }
+
+        }
 	}
 ?>
 <div class="panel panel-default">
@@ -11,7 +51,7 @@
 		<h2>Student Information <a class="btn btn-success pull-right" href="view.php">Back</a></h2>
 	</div>
 	<div class="panel-body">
-		<form action="" method="POST">
+		<form action="" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="name">Student Name</label>
 				<input class="form-control" type="text" name="name" id="name">
@@ -25,18 +65,14 @@
 				<input class="form-control" type="website" name="website" id="website">
 			</div>
 			<div class="form-group">
-				<label for="password">Password</label>
-				<input class="form-control" type="password" name="password" id="password">
-			</div>
-			<div class="form-group">
 			  <label for="country">Select Country </label>
 			  <select class="form-control" id="country" name="country">
 			    <option>Select Country</option>
-			    <option>Bangladesh</option>
-			    <option>India</option>
-			    <option>Canada</option>
-			    <option>Singapur</option>
-			    <option>Australia</option>
+			    <option value="">Bangladesh</option>
+			    <option value="">India</option>
+			    <option value="">Canada</option>
+			    <option value="">Singapur</option>
+			    <option value="">Australia</option>
 			  </select>
 			</div>
 			<div class="form-group">
@@ -60,8 +96,7 @@
 			<div class="form-group">
 				<input class="btn btn-primary" type="submit" name="submit" value="Add Student">
 				<input class="btn btn-primary" type="reset" name="reset" value="Reset Data">
-			</div>
-			
+			</div>			
 		</form>
 	</div>
 </div>
