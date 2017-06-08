@@ -17,6 +17,9 @@
         	$name     = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
         	$email    = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         	$website  = filter_var($_POST['website'], FILTER_SANITIZE_URL);
+        	$name     = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+        	$email    = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        	$website  = filter_var($_POST['website'], FILTER_SANITIZE_URL);
 
         	if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 				$error = "<span style='color:red;font-weight:bold'>Email address Invalid.</span>";
