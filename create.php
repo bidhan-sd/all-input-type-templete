@@ -1,3 +1,4 @@
+
 <?php include 'inc/header.php'; ?>
 <?php
 	session_start();
@@ -10,10 +11,10 @@
         $error = '';
         $success = '';
 
-        if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['website']) || empty($_POST['country']) || empty($_POST['subject']) || empty($_POST['gender']) || empty($_POST['image']) ){
+        if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['website']) || empty($_POST['country']) || empty($_POST['subject']) || empty($_POST['gender']) || empty($_FILES['image']) ){
+			
 			$error = "<span style='color:red;font-weight:bold'>Require field can't be empty...</span>";
         }else{
-
         	$name     = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
         	$email    = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         	$website  = filter_var($_POST['website'], FILTER_SANITIZE_URL);
@@ -24,38 +25,49 @@
         		if(!filter_var($website, FILTER_VALIDATE_URL)){
 					$error = "<span style='color:red;font-weight:bold'>Website address Invalid.</span>";
 	        	}else{
-
-					$allowed =  array('gif','png' ,'jpg');
-					$filename = $_FILES['image']['name'];
+	        		$allowed      =  array('gif','png' ,'jpg');
+					$filename     = $_FILES['image']['name'];
+					$templocation = $_FILES['image']['tmp_name'];
+					$filesize     = $_FILES['image']['size'];
+					$filekb = ceil($filesize/1024);
 					$ext = pathinfo($filename, PATHINFO_EXTENSION);
 					if(!in_array($ext,$allowed) ) {
-					    echo 'error';
-					}
-					$link = mysql_connect("localhost", "root", "");
-					mysql_select_db("crud", $link);
-
-					$name     = mysql_real_escape_string($name, $link);
-					$email    = mysql_real_escape_string($email, $link);
-					$website = mysql_real_escape_string($website, $link);
-					
-					$sql = "INSERT INTO users (userId,name,username,email,password,user_role,token,active,created_at,updated_at,deleted_at) VALUES ('$uniqId','$name','$username','$email','$hass_password','1','$token','0','$date','','')";
-					$result = mysql_query($sql);
-					if($result){
-						
+					 	$error = "<span style='color:red;font-weight:bold'>Image format must be jpg,png,gif,jpeg.</span>";
 					}else{
-						$error = "<span style='color:red;font-weight:bold'>Insertion Failed.</span>";
-					}      		
-						
-				}
+						if($filekb > 1048576){//1048576 == 2mb
+							$error = "<span style='color:red;font-weight:bold'>File size must be content within 2 mb.</span>";
+						}else{
+								$link = mysql_connect("localhost", "root", "");
+								mysql_select_db("crud", $link);
 
-	        }
-
+								$name     = mysql_real_escape_string($name, $link);
+								$email    = mysql_real_escape_string($email, $link);
+								$website  = mysql_real_escape_string($website, $link);
+								$country  = $_POST['country'];
+								$subject  = $_POST['subject'];
+								$gender   = $_POST['gender'];
+								
+								/*$sql = "INSERT INTO users (userId,name,username,email,password,user_role,token,active,created_at,updated_at,deleted_at) VALUES ('$uniqId','$name','$username','$email','$hass_password','1','$token','0','$date','','')";
+								$result = mysql_query($sql);
+								if($result){
+									
+								}else{
+									$error = "<span style='color:red;font-weight:bold'>Insertion Failed.</span>";
+								} */
+						}
+					}
+	        	}
+        	}
         }
 	}
 ?>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h2>Student Information <a class="btn btn-success pull-right" href="view.php">Back</a></h2>
+	<?php 
+		if(isset($success)){ echo $success; }
+		if(isset($error)){ echo $error; }
+	?>
 	</div>
 	<div class="panel-body">
 		<form action="" method="POST" enctype="multipart/form-data">
@@ -75,11 +87,11 @@
 			  <label for="country">Select Country </label>
 			  <select class="form-control" id="country" name="country">
 			    <option>Select Country</option>
-			    <option value="">Bangladesh</option>
-			    <option value="">India</option>
-			    <option value="">Canada</option>
-			    <option value="">Singapur</option>
-			    <option value="">Australia</option>
+			    <option value="Bangladesh">Bangladesh</option>
+			    <option value="India">India</option>
+			    <option value="Canada">Canada</option>
+			    <option value="Singapur">Singapur</option>
+			    <option value="Australia">Australia</option>
 			  </select>
 			</div>
 			<div class="form-group">
