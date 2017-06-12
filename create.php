@@ -1,10 +1,10 @@
 
 <?php include 'inc/header.php'; ?>
 <?php
-	session_start();
+	/*session_start();
 	if(empty($_SESSION['userinfo'])){
         header ("Location: signin.php");
-	}
+	}*/
 ?>
 <?php
     if(isset($_POST['submit'])){
@@ -30,8 +30,15 @@
 					$templocation = $_FILES['image']['tmp_name'];
 					$filesize     = $_FILES['image']['size'];
 					$filekb = ceil($filesize/1024);
+                    
+                    
 					$ext = pathinfo($filename, PATHINFO_EXTENSION);
-					if(!in_array($ext,$allowed) ) {
+                    //$info = explode('.', strtolower($filename); // whats the extension of the file
+                    $fileformate = strtolower($ext);
+                    
+                    //For more details : https://stackoverflow.com/questions/13470482/php-upload-image-to-directory
+                    
+					if(!in_array($fileformate,$allowed) ) {
 					 	$error = "<span style='color:red;font-weight:bold'>Image format must be jpg,png,gif,jpeg.</span>";
 					}else{
 						if($filekb > 1048576){//1048576 == 2mb
@@ -44,16 +51,17 @@
 								$email    = mysql_real_escape_string($email, $link);
 								$website  = mysql_real_escape_string($website, $link);
 								$country  = $_POST['country'];
-								$subject  = $_POST['subject'];
+                                $subjects = implode(",",$_POST['subject']);
 								$gender   = $_POST['gender'];
-								
-								/*$sql = "INSERT INTO users (userId,name,username,email,password,user_role,token,active,created_at,updated_at,deleted_at) VALUES ('$uniqId','$name','$username','$email','$hass_password','1','$token','0','$date','','')";
+                                $uniqId   = "adfdf45215963587";
+                            
+								$sql = "INSERT INTO addstudent (id,userId,name,email,website,country,subject,gender,image,created_at,updated_at,deleted_at) VALUES (null,'$uniqId','$name','$email','$website','$country','$subjects','$gender','$filename','','','')";
 								$result = mysql_query($sql);
 								if($result){
-									
+									$error = "<span style='color:green;font-weight:bold'>Student Added Successflly.</span>";
 								}else{
 									$error = "<span style='color:red;font-weight:bold'>Insertion Failed.</span>";
-								} */
+								}
 						}
 					}
 	        	}
