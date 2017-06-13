@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	if(empty($_SESSION['userinfo'])){
+        header ("Location: signin.php");
+	}
+	$userId = $_SESSION['userinfo']['userId'];
+
+?>
 <?php include 'inc/header.php'; ?>
 
 	<div class="panel-heading">
@@ -17,19 +25,31 @@
 			</tr>
 		</thead>
 		<tbody>
+		<?php
+			$link = mysql_connect("localhost", "root", "");
+			mysql_select_db("crud", $link);
+			$sql = "SELECT * FROM addstudent WHERE userId='$userId' ORDER BY id DESC";
+			$query = mysql_query($sql, $link);
+		?>
+		<?php
+			$i = 0;
+			while($value = mysql_fetch_assoc($query))
+			{
+		?>
 			<tr>
-				<td>01</td>
-				<td>Bidhan sutradhar</td>
-				<td>Bidhanvk@gmail.com</td>
-				<td>Bangladesh</td>
-				<td>Male</td>
-				<td><img src="img/capcha.png" width="70px" height="40px" /></td>
+				<td><?php echo $i; ?></td>
+				<td><?php echo $value['name']; ?></td>
+				<td><?php echo $value['email']; ?></td>
+				<td><?php echo $value['country']; ?></td>
+				<td><?php echo $value['gender']; ?></td>
+				<td><img src="<?php echo $value['image']; ?>" width="70px" height="40px" /></td>
 				<td>
-					<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">View</a>
+					<a class="btn btn-info btn-lg" data-toggle="modal" data-target="<?php echo $value['id']?>myModal">View</a>
 					<a class="btn btn-default btn-lg" href="edit.php">Edit</a>
 					<a class="btn btn-danger btn-lg" href="delete.php" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
 				</td>
 			</tr>
+		<?php } ?>
 		</tbody>
 		</table>
 

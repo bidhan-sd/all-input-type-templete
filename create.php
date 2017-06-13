@@ -65,7 +65,7 @@
                             $date     = date('Y-m-d');
 
                             move_uploaded_file($templocation, $uploaded_image);
-							$sql = "INSERT INTO addstudent (id,userId,name,email,website,country,subject,gender,image,created_at,updated_at,deleted_at) VALUES (null,'$userId','$name','$email','$website','$country','$subjects','$gender','$unique_image','$date','','')";
+							$sql = "INSERT INTO addstudent (id,userId,name,email,website,country,subject,gender,image,created_at,updated_at,deleted_at) VALUES (null,'$userId','$name','$email','$website','$country','$subjects','$gender','$uploaded_image','$date','','')";
 
 							$result = mysql_query($sql);
 							if($result){
