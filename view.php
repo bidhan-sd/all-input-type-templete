@@ -45,7 +45,7 @@
 					<td><img src="<?php echo $value['image']; ?>" width="70px" height="40px" /></td>
 					<td>
 						<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<?php echo $i; ?>">View</a>
-						<a class="btn btn-default btn-lg" href="edit.php">Edit</a>
+						<a class="btn btn-default btn-lg" href="edit.php?id=<?php echo $value['id'];?>&userId=<?php echo $value['userId'];?>">Edit</a>
 						<a class="btn btn-danger btn-lg" href="delete.php" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
 					</td>
 					<!-- Modal -->
