@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	if(empty($_SESSION['userinfo'])){
+        header ("Location: signin.php");
+	}
+	$userId = $_SESSION['userinfo']['userId'];
+
+?>
 <?php include 'inc/header.php'; ?>
 
 <div class="panel panel-default">
@@ -5,32 +13,28 @@
 		<h2>Update Student Information <a class="btn btn-success pull-right" href="view.php">Back</a></h2>
 	</div>
 	<div class="panel-body">
-		<form action="" method="POST">
+		<form action="" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="name">Student Name</label>
-				<input class="form-control" type="text" name="name" id="name" value="Bidhan Sutradhar">
+				<input class="form-control" type="text" name="name" id="name">
 			</div>
 			<div class="form-group">
 				<label for="email">Student Email</label>
-				<input class="form-control" type="email" name="email" id="email" value="Bidhan@gmail.com">
+				<input class="form-control" type="email" name="email" id="email">
 			</div>			
 			<div class="form-group">
 				<label for="website">Website</label>
-				<input class="form-control" type="website" name="website" id="website" value="http://www.imbidhan.com">
-			</div>
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input class="form-control" type="password" name="password" id="password" value="12345">
+				<input class="form-control" type="website" name="website" id="website">
 			</div>
 			<div class="form-group">
 			  <label for="country">Select Country </label>
 			  <select class="form-control" id="country" name="country">
 			    <option>Select Country</option>
-			    <option selected="selected">Bangladesh</option>
-			    <option>India</option>
-			    <option>Canada</option>
-			    <option>Singapur</option>
-			    <option>Australia</option>
+			    <option value="Bangladesh">Bangladesh</option>
+			    <option value="India">India</option>
+			    <option value="Canada">Canada</option>
+			    <option value="Singapur">Singapur</option>
+			    <option value="Australia">Australia</option>
 			  </select>
 			</div>
 			<div class="form-group">
@@ -43,23 +47,18 @@
 			</div>
 			<div class="form-group">
 				<label>Gender</label>
-				<label class="radio-inline"><input type="radio" name="gender" value="Male" checked="checked">Male</label>
+				<label class="radio-inline"><input type="radio" name="gender" value="Male">Male</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="others">Other</label>
-			</div>
-			<div class="form-group">
-				<label>Previous avatar</label>
-				<label class="radio-inline"><img src="img/favicon.png" width="40" width="20"></label>
 			</div>
 			<div class="form-group">
 				<label>Avatar</label>
 				<label class="radio-inline"><input type="file" name="image"/></label>
 			</div>
 			<div class="form-group">
-				<input class="btn btn-primary" type="submit" name="submit" value="Update">
-
-			</div>
-			<span class="text-center">Last Update </span> <label>10/10/2010</label>
+				<input class="btn btn-primary" type="submit" name="submit" value="Add Student">
+				<input class="btn btn-primary" type="reset" name="reset" value="Reset Data">
+			</div>			
 		</form>
 	</div>
 </div>
