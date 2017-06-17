@@ -10,6 +10,12 @@
 
 	<div class="panel-heading">
 		<h2 class="text-center">Student List</h2>
+		<?php
+            if(isset($_SESSION['message'])){
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+        ?>
 	</div>
 	<div class="panel-body">
 		<table class="table table-striped table-hover table-bordered table-condensed">
@@ -28,7 +34,7 @@
 			<?php
 				$link = mysql_connect("localhost", "root", "");
 				mysql_select_db("crud", $link);
-				$sql = "SELECT * FROM addstudent WHERE userId='$userId' ORDER BY id DESC";
+				$sql = "SELECT * FROM addstudent WHERE userId='$userId' AND is_deleted='0' ORDER BY id DESC";
 				$query = mysql_query($sql, $link);
 			?>
 			<?php
@@ -46,7 +52,7 @@
 					<td>
 						<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<?php echo $i; ?>">View</a>
 						<a class="btn btn-default btn-lg" href="edit.php?id=<?php echo $value['id'];?>&userId=<?php echo $value['userId'];?>">Edit</a>
-						<a class="btn btn-danger btn-lg" href="delete.php" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
+						<a class="btn btn-danger btn-lg" href="delete.php?id=<?php echo $value['id'];?>&userId=<?php echo $value['userId'];?>" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
 					</td>
 					<!-- Modal -->
 					<div class="modal fade" id="myModal<?php echo $i; ?>" role="dialog">

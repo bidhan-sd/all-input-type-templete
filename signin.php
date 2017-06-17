@@ -60,7 +60,7 @@
 	<?php 
 		if(isset($success)){ echo $success; }
 		if(isset($error)){ echo $error; }
-	 ?>
+    ?>
 	<form class="form-horizontal" action=""  method="POST">
 		<div class="form-group">
 			<label for="email" class="control-label">Your Email or Username<span style="color:red;">*</span></label>						
