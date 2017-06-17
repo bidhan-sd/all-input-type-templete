@@ -1,6 +1,6 @@
 <?php include 'inc/header.php'; ?>
 	<div class="panel-heading">
-		<h2 class="text-center">Trashlist List </h2>
+		<h2 class="text-center">Trashlist List <a class="btn btn-success pull-right" href="view.php">Back</a></h2>
 	</div>
 	<div class="panel-body">
 		<table class="table table-striped table-hover table-bordered table-condensed 	">

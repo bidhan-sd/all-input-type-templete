@@ -11,8 +11,7 @@
         $error = '';
         $success = '';
 
-        if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['website']) || empty($_POST['country']) || empty($_POST['subject']) || empty($_POST['gender']) || empty($_FILES['image']) ){
-			
+        if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['website']) || empty($_POST['country']) || empty($_POST['subject']) || empty($_POST['gender']) || empty($_FILES['image']) ){			
 			$error = "<span style='color:red;font-weight:bold'>Require field can't be empty...</span>";
         }else{
         	$name     = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
