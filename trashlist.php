@@ -31,8 +31,20 @@
 		<?php
 			$link = mysql_connect("localhost", "root", "");
 			mysql_select_db("crud", $link);
-			$sql = "SELECT * FROM addstudent WHERE userId='$userId' AND is_deleted='1' ORDER BY id DESC";
-			$query = mysql_query($sql, $link);
+			//User input
+			$page    = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+			$perPage = isset($_GET['per-page']) &&  $_GET['per-page'] <= 50 ? (int)$_GET['per-page'] : 5;
+
+			//Positioning
+			$start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+
+			$sql = "SELECT * FROM addstudent WHERE userId='$userId' AND is_deleted='1' ORDER BY id DESC LIMIT {$start}, {$perPage}";
+			$query   = mysql_query($sql, $link);
+			//row count
+			$rowQuery = "SELECT * FROM addstudent WHERE is_deleted = 1";
+			$query1   = mysql_query($rowQuery, $link);
+			$total     = mysql_num_rows($query1);
+			$pages   = ceil($total / $perPage);
 		?>
 		<?php
 			$i = 1;
@@ -81,13 +93,11 @@
 		</table>
 
 		<ul class="pagination">
-		   <li><a href="#" aria-label="Previous"><span aria-hidden="true">First</span></a></li>
-		   <li><a href="#">1</a></li>
-		   <li><a href="#">2</a></li>
-		   <li><a href="#">3</a></li>
-		   <li><a href="#">4</a></li>
-		   <li><a href="#">5</a></li>
-		   <li><a href="#" aria-label="Previous"><span aria-hidden="true">Next</span></a></li>
+		   <li><a href="?page=1&per-page=5" aria-label="Previous"><span aria-hidden="true">First</span></a></li>
+		    <?php  for($x = 1; $x <= $pages; $x++): ?>
+		   		<li <?php if($page === $x) {echo 'class="active"' ; } ?> ><a href="?page=<?php echo $x ;?>&per-page=<?php echo $perPage; ?>" ><?php echo $x; ?></a></li>
+			<?php endfor; ?>
+		   <li><a href="?page=<?php echo $pages; ?>&per-page=5" aria-label="Previous"><span aria-hidden="true">Last</span></a></li>
 		</ul>
 	</div>
 <?php include 'inc/footer.php'; ?>

@@ -160,7 +160,7 @@
 				<label>Gender</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="Male"  <?php if($result['gender'] == "Male") echo "Checked" ?>>Male</label>
 				<label class="radio-inline"><input type="radio" name="gender" value="Female" <?php if($result['gender'] == "Female") echo "Checked"; ?> />Female</label>
-				<label class="radio-inline"><input type="radio" name="gender" value="Others" <?php if($result['gender'] == "Others") echo  "Checked"; ?>>Other</label>
+				<label class="radio-inline"><input type="radio" name="gender" value="others" <?php if($result['gender'] == "others") echo  "Checked"; ?>>Other</label>
 			</div>
 			<div class="form-group">				
 				<label class="radio-inline"><img src="<?php echo $result['image']; ?>" width="100" width="100"></label><br/>
