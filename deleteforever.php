@@ -17,9 +17,9 @@
 
     $link = mysql_connect("localhost", "root", "");
     mysql_select_db("crud", $link);
-    $sql = "UPDATE `addstudent` SET `is_deleted`='0' WHERE id = '$id' AND userId='$userId' ";
+    $sql = "UPDATE `addstudent` SET `is_deleted`='2' WHERE id = '$id' AND userId='$userId' ";
     $query = mysql_query($sql, $link);
-    $_SESSION['message'] = "<span style='color:green;font-weight:bold'> Data Restore Successfully</span> ";
+    $_SESSION['message'] = "<span style='color:green;font-weight:bold'> Data permanently deleted</span> ";
     header("location: trashlist.php");
 
 ?>
