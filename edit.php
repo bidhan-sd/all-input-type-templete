@@ -4,15 +4,34 @@
         header ("Location: signin.php");
 	}
 	$userId = $_SESSION['userinfo']['userId'];
+    require_once 'urlencryptor.php';
 
     if(isset($_GET['id']) && isset($_GET['userId'])){        
-        $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+        $id = filter_var($_GET['id'], FILTER_SANITIZE_STRING);//The mysqli_real_escape_string() function escapes special characters in a string for use in an SQL statement.
+        $id = mysql_real_escape_string($id);
+        $id = htmlspecialchars($id, ENT_IGNORE, 'utf-8');//The htmlspecialchars() function converts some predefined characters to HTML entities.
+        $id = strip_tags($id);//The strip_tags() function strips a string from HTML, XML, and PHP tags.
+        $id = stripslashes($id);//Remove the backslash:
         
         $userId = filter_var($_GET['userId'], FILTER_SANITIZE_STRING);//The mysqli_real_escape_string() function escapes special characters in a string for use in an SQL statement.
         $userId = mysql_real_escape_string($userId);
         $userId = htmlspecialchars($userId, ENT_IGNORE, 'utf-8');//The htmlspecialchars() function converts some predefined characters to HTML entities.
         $userId = strip_tags($userId);//The strip_tags() function strips a string from HTML, XML, and PHP tags.
         $userId = stripslashes($userId);//Remove the backslash:
+
+        $id = urldecode($id);
+        $id = encryptor('decrypt', $id);
+        $userId = urldecode($userId);
+        $userId = encryptor('decrypt', $userId);
+        $link = mysql_connect("localhost", "root", "");
+                mysql_select_db("crud", $link);
+        $sql = "SELECT * FROM addstudent WHERE id='$id' AND userId='$userId'";
+        $query   = mysql_query($sql, $link);
+        $total     = mysql_num_rows($query);
+        if(!$total > 0){
+            header("location: 404.php");
+        }
+        
     }     
 ?>
 <?php

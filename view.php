@@ -4,6 +4,7 @@
         header ("Location: signin.php");
 	}
 	$userId = $_SESSION['userinfo']['userId'];
+	require_once 'urlencryptor.php';
 
 ?>
 <?php include 'inc/header.php'; ?>
@@ -65,7 +66,11 @@
 					<td><img src="<?php echo $value['image']; ?>" width="70px" height="40px" /></td>
 					<td>
 						<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<?php echo $i; ?>">View</a>
-						<a class="btn btn-default btn-lg" href="edit.php?id=<?php echo $value['id'];?>&userId=<?php echo $value['userId'];?>">Edit</a>
+						<?php 
+							$id     = urlencode(encryptor('encrypt', $value['id']));
+							$userId = urlencode(encryptor('encrypt', $value['userId']));
+						?>
+						<a class="btn btn-default btn-lg" href="edit.php?id=<?php echo $id;?>&userId=<?php echo $userId;?>">Edit</a>
 						<a class="btn btn-danger btn-lg" href="delete.php?id=<?php echo $value['id'];?>&userId=<?php echo $value['userId'];?>" onclick="return confirm('After deleting data will be store into recycle bin ?')">Remove</a>
 					</td>
 					<!-- Modal -->
