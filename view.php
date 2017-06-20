@@ -107,14 +107,14 @@
 			</tbody>
 		</table>
 
-
-		<ul class="pagination">
-		   <li><a href="?page=1&per-page=5" aria-label="Previous"><span aria-hidden="true">First</span></a></li>
-		    <?php  for($x = 1; $x <= $pages; $x++): ?>
-		   		<li <?php if($page === $x) {echo 'class="active"' ; } ?> ><a href="?page=<?php echo $x ;?>&per-page=<?php echo $perPage; ?>" ><?php echo $x; ?></a></li>
-			<?php endfor; ?>
-		   <li><a href="?page=<?php echo $pages; ?>&per-page=5" aria-label="Previous"><span aria-hidden="true">Last</span></a></li>
-		</ul>
-
+		<?php if($pages > 0){ // This condition apply for if have no data for pagination ?>
+			<ul class="pagination">
+			   <li><a href="?page=1&per-page=5" aria-label="Previous"><span aria-hidden="true">First</span></a></li>
+			    <?php  for($x = 1; $x <= $pages; $x++): ?>
+			   		<li <?php if($page === $x) {echo 'class="active"' ; } ?> ><a href="?page=<?php echo $x ;?>&per-page=<?php echo $perPage; ?>" ><?php echo $x; ?></a></li>
+				<?php endfor; ?>
+			   <li><a href="?page=<?php echo $pages; ?>&per-page=5" aria-label="Previous"><span aria-hidden="true">Last</span></a></li>
+			</ul>
+		<?php } ?>
 	</div>
 <?php include 'inc/footer.php'; ?>
