@@ -14,12 +14,37 @@
         		$link   = mysql_connect("localhost", "root", "");
                           mysql_select_db("crud", $link);
                 $email  = mysql_real_escape_string($email, $link);
-                $sql    = "SELECT * FROM users WHERE email='$email'";
+                $sql    = "SELECT * FROM users WHERE email='$email' LIMIT 1 ";
 			    $query  = mysql_query($sql, $link);
-			    $result = mysql_fetch_assoc($query);
-			    $row    = mysql_num_rows($query);
-			    if($row > 0){
-
+			    if(mysql_num_rows($query) == 1){			    	
+			    	$result = mysql_fetch_assoc($query);
+			    	$userId = $result['userId'];
+			    	$passwordToken = $result['passwordToken'];
+					//To make user the email address is correct we will send email 			    	
+					if($passwordToken != ""){
+						$error = "<span style='color:red;font-weight:bold'>Please check your address we have already send you a password reset link !</span>";						
+					}else{
+						$randomCode = time().rand(50000,100000);
+						$randomCode = str_shuffle($randomCode);
+						$link   = mysql_connect("localhost", "root", "");
+					    mysql_select_db("crud", $link);
+					    $sql = "UPDATE `users` SET `passwordToken`='$randomCode' WHERE userId='$userId' ";
+					    if(mysql_query($sql)){
+					    	$to = $email;
+					        $subject = "Reset | Password";
+					        $txt = "Please click on the given link or copy url to reset your password
+					        <a href='resetpassword.php?email=$email&userId=$userId&passwordtoken=$randomCode'>Click</a>";
+					        $headers = "From: info@imbidhan.com" . "\r\n" .
+					        "CC: somebodyelse@example.com";
+					        /*$mail = mail($to,$subject,$txt,$headers);
+					        if($mail){
+							    $success = "<span style='color:green;font-weight:bold'>Please confirm your email to reset your password!</span>";
+					        }*/
+					        echo $txt;
+					    }
+					}			    	
+			    }else{
+			    	$error = "<span style='color:red;font-weight:bold'>Email address not exists !</span>";
 			    }
         	}
 		}

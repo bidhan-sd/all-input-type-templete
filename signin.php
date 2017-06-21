@@ -60,6 +60,7 @@
 	<?php 
 		if(isset($success)){ echo $success; }
 		if(isset($error)){ echo $error; }
+		if(isset($_SESSION['message'])){ echo $_SESSION['message'];unset($_SESSION['message']); }
     ?>
 	<form class="form-horizontal" action=""  method="POST">
 		<div class="form-group">
