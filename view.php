@@ -93,7 +93,7 @@
 									<span class="text-center"><label>Create Date :</label> </span> <?php echo $value['created_at']; ?>
 									
 									<span  class="pull-right">
-										<a target="_blank" href="pdf.php?id=<?php echo $id; ?>&userId=<?php echo $userId; ?>">Save as pdf </a> || <a href="xl.php">Save as Xl </a>
+										<a target="_blank" href="pdf.php?id=<?php echo $id; ?>&userId=<?php echo $userId; ?>">Save as pdf </a> || <a href="xl.php?id=<?php echo $id; ?>&userId=<?php echo $userId; ?>">Save as Xl </a>
 									</span>
 								</div>
 								<div class="modal-footer">
